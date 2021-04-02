@@ -1,6 +1,6 @@
 import React from "react"
 import Layout from "../components/layout"
-import { graphql } from "gatsby"
+import { Link, graphql } from "gatsby"
 import { css } from "@emotion/react"
 import { rhythm } from "../utils/typography"
 
@@ -10,6 +10,7 @@ export default function Home({ data }) {
       <div >
         <h1>Home</h1>
         <p>What a world we live in.</p>
+        <hr></hr>
         <h1
           css={css`
             display: inline-block;
@@ -21,24 +22,40 @@ export default function Home({ data }) {
         <h4>{data.allMarkdownRemark.totalCount} Posts</h4>
         {data.allMarkdownRemark.edges.map(({ node }) => (
           <div key={node.id}>
-            <h3
+            <Link
+              to={node.fields.slug}
               css={css`
-                margin-bottom: ${rhythm(1 / 4)};
+                text-decoration: none;
+                color: inherit;
               `}
             >
-              {node.frontmatter.title}{" "}
-              <span
+              <h3
                 css={css`
-                  color: #bbb;
+                  margin-bottom: ${rhythm(1 / 4)};
                 `}
               >
-                — {node.frontmatter.date}
-              </span>
-            </h3>
-            <p>{node.excerpt}</p>
+                {node.frontmatter.title}{" "}
+                <span
+                  css={css`
+                    color: #bbb;
+                  `}
+                >
+                  — {node.frontmatter.date}
+                </span>
+              </h3>
+              <p>{node.excerpt}</p>
+            </Link>
           </div>
         ))}
-        <img src={`medical-logo-design.jpeg`} alt="Compony logo" />
+        <hr></hr>
+        <img  src={`medical-logo-design.jpeg`} 
+              alt="Compony logo" 
+              css={css`
+                max-width: 20%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+              `} />
       </div>
     </Layout>   
   );
@@ -54,6 +71,9 @@ export const query = graphql`
           frontmatter {
             title
             date(formatString: "DD MMMM, YYYY")
+          }
+          fields {
+            slug
           }
           excerpt
         }

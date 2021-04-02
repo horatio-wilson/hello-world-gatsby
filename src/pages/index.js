@@ -3,6 +3,7 @@ import Layout from "../components/layout"
 import { Link, graphql } from "gatsby"
 import { css } from "@emotion/react"
 import { rhythm } from "../utils/typography"
+import { StaticImage } from "gatsby-plugin-image"
 
 export default function Home({ data }) {
   return (
@@ -48,14 +49,11 @@ export default function Home({ data }) {
           </div>
         ))}
         <hr></hr>
-        <img  src={`medical-logo-design.jpeg`} 
-              alt="Compony logo" 
-              css={css`
-                max-width: 20%;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-              `} />
+        <StaticImage 
+          src="../images/icon.png" 
+          alt="Compony logo" 
+          width={200}
+          height={200}/>
       </div>
     </Layout>   
   );
